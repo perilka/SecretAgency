@@ -10,7 +10,7 @@
             <p>Email: {{ email }}</p>
             <p>Secrecy level: {{ level|capitalize }}</p>
             <a href="/edit/{{ id }}">Edit</a>
-            <a href="/delete/{{ id }}">Delete</a>
+            <a href="/delete/{{ id }}" onclick="return confirm('Are you sure?')">Delete</a>
             <a href="/">Back to List</a>
         </div>
     </div>

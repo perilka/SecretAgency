@@ -5,6 +5,12 @@
 {% block content %}
     <div class="agents-container">
         <h2>Agents List</h2>
+        <form class="form-group" method="GET" action="/agents">
+            <div class="form-group">
+                <input type="text" name="search" placeholder="Enter agent name">
+                <button type="submit">Find</button>
+            </div>
+        </form>
         <ul class="agent-list">
             {% for agent in agents %}
                 <li class="agent-item">
@@ -12,6 +18,6 @@
                 </li>
             {% endfor %}
         </ul>
-        <a href="/add">Add New Agent</a>
+        <a href="{{ url_for('add_agent')}}">Add New Agent</a>
     </div>
 {% endblock %}

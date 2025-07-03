@@ -3,21 +3,20 @@
 {% block title %}Add New Agent{% endblock %}
 
 {% block content %}
-    {% block error %}{% endblock %}
     <div class="add-agent-container">
-        <p>Input information about the new agent:</p>
-        <form class="form-group">
+        {% block error %}<p>Input information about the new agent:</p>{% endblock %}
+        <form class="form-group" method="POST">
             <div class="form-group">
-                <label>Name:</label>
-                <input type="text" name="name">
+                <label>Name <a href="/random">(get random one)</a>:</label>
+                <input type="text" name="name" value="{{ random_name }}" required>
             </div>
             <div class="form-group">
                 <label>Phone Number:</label>
-                <input type="text" name="number">
+                <input type="number" name="number" required>
             </div>
             <div class="form-group">
                 <label>Email:</label>
-                <input type="text" name="email">
+                <input type="email" name="email" required>
             </div>
             <div class="form-group">
                 <label>Choose the secrecy level:</label>

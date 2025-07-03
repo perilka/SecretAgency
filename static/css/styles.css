@@ -83,14 +83,34 @@ button:hover {
 
 .error-message {
     color: #ff3333;
-    font-size: 1.1em;
-    margin-bottom: 15px;
+    font-size: 1em;
     text-align: center;
 }
 
 .agent-list {
     list-style: none;
     padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #00cc00 #333;
+}
+
+.agent-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.agent-list::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.agent-list::-webkit-scrollbar-thumb {
+    background: #00cc00;
+    border-radius: 4px;
+}
+
+.agent-list::-webkit-scrollbar-thumb:hover {
+    background: #00b300;
 }
 
 .agent-item {
