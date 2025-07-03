@@ -3,21 +3,15 @@
 {% block title %}Agents{% endblock %}
 
 {% block content %}
-    <div>
-        <h1>Agents List</h1>
-
-        <div>
-            <ul>
-                {% for agent in agents %}
-                <li>
-                    <a href="{{ url_for('show_agent', id=agent.id) }}">{{ agent.name }}</a>
+    <div class="agents-container">
+        <h2>Agents List</h2>
+        <ul class="agent-list">
+            {% for agent in agents %}
+                <li class="agent-item">
+                    <a href="/agent/{{ agent.id }}">{{ agent.name }}</a>
                 </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div>
-            <a href="{{ url_for('add_agent') }}" class="btn btn-success">Add New Agent</a>
-        </div>
+            {% endfor %}
+        </ul>
+        <a href="/add">Add New Agent</a>
     </div>
 {% endblock %}

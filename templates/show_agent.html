@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Agent{% endblock %}
+{% block title %}Agent {{ name }}{% endblock %}
 
 {% block content %}
-
-    <p>{{ name }}</p>
-    <p>{{ number }}</p>
-    <p>{{ email }}</p>
-    <p>{{ level|capitalize }}</p>
-
-    <a href="{{ url_for('edit_agent', id=id) }}" class="btn btn-sm btn-warning">Edit</a>
-    <a href="{{ url_for('delete_agent', id=id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-
+    <div class="show-agent-container">
+        <div class="agent-detail">
+            <p>Name: {{ name }}</p>
+            <p>Number: {{ number }}</p>
+            <p>Email: {{ email }}</p>
+            <p>Secrecy level: {{ level|capitalize }}</p>
+            <a href="/edit/{{ id }}">Edit</a>
+            <a href="/delete/{{ id }}">Delete</a>
+            <a href="/">Back to List</a>
+        </div>
+    </div>
 {% endblock %}

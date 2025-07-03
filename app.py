@@ -49,7 +49,7 @@ def add_agent():
     return render_template('add_agent.html')
 
 # 📌 Редактирование задачи
-@app.route('/show/<int:id>')
+@app.route('/agent/<int:id>')
 def show_agent(id):
     agent = Agent.query.get_or_404(id)
     name = agent.name
@@ -64,6 +64,7 @@ def edit_agent(id):
     name = agent.name
     number = agent.number
     email = agent.email
+    level = agent.level
     if request.method == 'POST':
         new_name = request.form['name']
         new_number = request.form['number']
@@ -77,7 +78,7 @@ def edit_agent(id):
             db.session.commit()
             return redirect(url_for('show_agent', id=id))
         return redirect(url_for('error_edit', id=id))
-    return render_template('edit_agent.html', id=id, name=name, number=number, email=email)
+    return render_template('edit_agent.html', id=id, name=name, number=number, email=email, level=level)
 
 # 📌 Удаление задачи
 @app.route('/delete/<int:id>')
