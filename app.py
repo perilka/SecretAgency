@@ -100,12 +100,13 @@ def write_to(id):
         agent = Agent.query.get_or_404(id)
         name = agent.name
         email = agent.email
-        return render_template('write_to.html', confirmation="Message delivered successfully! "
-                                                             "So what if it's just a poor imitation, the main thing is "
-                                                             "that it works and if I want I can adapt it to a real case "
-                                                             "(not to a real secret agent database, of course, but now "
-                                                             "I have a general idea of how it works; in fact, this is "
-                                                             "what all these training projects are for)", name=name, email=email)
+        return render_template('write_to.html',
+                               confirmation="Message delivered successfully! "
+                               "So what if it's just a poor imitation, the main thing is "
+                               "that it works and if I want I can adapt it to a real case "
+                               "(not to a real secret agent database, of course, but now "
+                               "I have a general idea of how it works; in fact, this is "
+                               "what all these training projects are for)", name=name, email=email)
     agent = Agent.query.get_or_404(id)
     name = agent.name
     email = agent.email
