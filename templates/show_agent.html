@@ -5,13 +5,15 @@
 {% block content %}
     <div class="show-agent-container">
         <div class="agent-detail">
+            <p>Dossier №: {{ id }}</p>
             <p>Name: {{ name }}</p>
             <p>Number: {{ number }}</p>
             <p>Email: {{ email }}</p>
             <p>Secrecy level: {{ level|capitalize }}</p>
+            <a href="/write/{{ id }}">Write To {{ name }}</a>
             <a href="/edit/{{ id }}">Edit</a>
             <a href="/delete/{{ id }}" onclick="return confirm('Are you sure?')">Delete</a>
-            <a href="/">Back to List</a>
+            <a href="/">Back To List</a>
         </div>
     </div>
 {% endblock %}

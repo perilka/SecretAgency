@@ -10,7 +10,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Инициализация базы данных
 db = SQLAlchemy(app)
 
-# Модель задачи (таблица Task)
+# Модель задачи (таблица Agent)
 class Agent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
@@ -21,25 +21,26 @@ class Agent(db.Model):
     def __repr__(self):
         return f"<Agent {self.name}>"
 
-# Создаем таблицу в базе данных
 with app.app_context():
     db.create_all()
 
-#Главная страница: список агентов
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/agents', methods=['GET', 'POST'])
+@app.route('/agent/0', methods=['GET', 'POST'])
 def get_agents():
     if request.method == "GET":
         search_query = request.args.get('search', '').strip()
         if search_query:
-            agents = Agent.query.filter(Agent.name.ilike(f'%{search_query}%')).all()
+            agents = Agent.query.filter(Agent.name.ilike(search_query)).all()
         else:
             agents = Agent.query.all()
-        return render_template('agents.html', agents=agents)
+        if agents:
+            return render_template('agents.html', agents=agents)
+        else:
+            return render_template('agents.html', agents=[{'id': 0, 'name': 'No Result, Go Back To List'}])
     agents = Agent.query.all()
     return render_template('agents.html', agents=agents)
 
-#Добавление нового агента
 @app.route('/add', methods=['GET', 'POST'])
 def add_agent():
     if request.method == 'POST':
@@ -55,7 +56,6 @@ def add_agent():
         return render_template('error_input.html')
     return render_template('add_agent.html')
 
-# 📌 Редактирование задачи
 @app.route('/agent/<int:id>')
 def show_agent(id):
     agent = Agent.query.get_or_404(id)
@@ -87,13 +87,29 @@ def edit_agent(id):
         return render_template('error_edit.html', id=id, name=name, number=number, email=email, level=level)
     return render_template('edit_agent.html', id=id, name=name, number=number, email=email, level=level)
 
-# 📌 Удаление задачи
 @app.route('/delete/<int:id>')
 def delete_agent(id):
-    agent = Agent.query.get_or_404(id)  # Получаем задачу по ID
-    db.session.delete(agent)  # Удаляем из базы
-    db.session.commit()  # Подтверждаем изменения
+    agent = Agent.query.get_or_404(id)
+    db.session.delete(agent)
+    db.session.commit()
     return redirect(url_for('get_agents'))
+
+@app.route('/write/<int:id>', methods=['POST', 'GET'])
+def write_to(id):
+    if request.method == 'POST':
+        agent = Agent.query.get_or_404(id)
+        name = agent.name
+        email = agent.email
+        return render_template('write_to.html', confirmation="Message delivered successfully! "
+                                                             "So what if it's just a poor imitation, the main thing is "
+                                                             "that it works and if I want I can adapt it to a real case "
+                                                             "(not to a real secret agent database, of course, but now "
+                                                             "I have a general idea of how it works; in fact, this is "
+                                                             "what all these training projects are for)", name=name, email=email)
+    agent = Agent.query.get_or_404(id)
+    name = agent.name
+    email = agent.email
+    return render_template('write_to.html', id=id, name=name, email=email)
 
 @app.route("/random", methods=["POST", "GET"])
 def get_random_name():

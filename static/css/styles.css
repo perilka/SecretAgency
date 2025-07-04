@@ -197,3 +197,11 @@ a:hover {
     color: #00cc00;
     margin-bottom: 20px;
 }
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
