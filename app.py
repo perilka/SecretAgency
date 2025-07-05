@@ -96,10 +96,10 @@ def delete_agent(id):
 
 @app.route('/write/<int:id>', methods=['POST', 'GET'])
 def write_to(id):
+    agent = Agent.query.get_or_404(id)
+    name = agent.name
+    email = agent.email
     if request.method == 'POST':
-        agent = Agent.query.get_or_404(id)
-        name = agent.name
-        email = agent.email
         return render_template('write_to.html',
                                confirmation="Message delivered successfully! "
                                "So what if it's just a poor imitation, the main thing is "
@@ -107,9 +107,6 @@ def write_to(id):
                                "(not to a real secret agent database, of course, but now "
                                "I have a general idea of how it works; in fact, this is "
                                "what all these training projects are for)", name=name, email=email)
-    agent = Agent.query.get_or_404(id)
-    name = agent.name
-    email = agent.email
     return render_template('write_to.html', id=id, name=name, email=email)
 
 @app.route("/random", methods=["POST", "GET"])

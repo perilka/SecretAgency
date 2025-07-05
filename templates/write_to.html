@@ -6,7 +6,9 @@
     <form method="POST">
         <div class="form-group">
             <label for="message">Your Message To {{ name }}:</label>
-            <p>{{ confirmation }}</p>
+            {% if confirmation %}
+                <p>{{ confirmation }}</p>
+            {% endif %}
             <p>Email: {{ email }}</p>
             <textarea id="message" name="message" required></textarea>
         </div>
