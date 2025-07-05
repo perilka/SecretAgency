@@ -37,7 +37,8 @@ def get_agents():
         if agents:
             return render_template('agents.html', agents=agents)
         else:
-            return render_template('agents.html', agents=[{'id': 0, 'name': 'No Result, Go Back To List'}])
+            return render_template('agents.html',
+                                   agents=[{'id': 0, 'name': 'No Result, Go Back To List'}])
     agents = Agent.query.all()
     return render_template('agents.html', agents=agents)
 
@@ -53,7 +54,7 @@ def add_agent():
             db.session.add(new_agent)
             db.session.commit()
             return redirect(url_for('get_agents'))
-        return render_template('error_input.html')
+        return render_template('add_agent.html', error_message=True)
     return render_template('add_agent.html')
 
 @app.route('/agent/<int:id>')
@@ -63,7 +64,8 @@ def show_agent(id):
     number = agent.number
     email = agent.email
     level = agent.level
-    return render_template('show_agent.html', id=id, name=name, number=number, email=email, level=level)
+    return render_template('show_agent.html',
+                           id=id, name=name, number=number, email=email, level=level)
 
 @app.route('/edit/<int:id>', methods=['POST', 'GET'])
 def edit_agent(id):
@@ -84,7 +86,8 @@ def edit_agent(id):
             agent.level = new_level
             db.session.commit()
             return redirect(url_for('show_agent', id=id))
-        return render_template('error_edit.html', id=id, name=name, number=number, email=email, level=level)
+        return render_template('edit_agent.html', error_message=True,
+                               id=id, name=name, number=number, email=email, level=level)
     return render_template('edit_agent.html', id=id, name=name, number=number, email=email, level=level)
 
 @app.route('/delete/<int:id>')
@@ -125,7 +128,7 @@ def get_random_name():
             db.session.add(new_agent)
             db.session.commit()
             return redirect(url_for('get_agents'))
-        return render_template('error_input.html')
+        return render_template('add_agent.html', error_message=True)
     import random
     consonants = [chr(i) for i in range(65, 91) if chr(i) not in 'AEIOU']
     random_name = random.choice(consonants) + 'u' + random.choice(consonants) + 'a'

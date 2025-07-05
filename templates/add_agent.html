@@ -4,7 +4,11 @@
 
 {% block content %}
     <div class="add-agent-container">
-        {% block error %}<p>Input information about the new agent:</p>{% endblock %}
+        {% if error_message %}
+            <p class="error-message">Please fill in all fields correctly.</p>
+        {% else %}
+            <p>Input information about the new agent:</p>
+        {% endif %}
         <form class="form-group" method="POST">
             <div class="form-group">
                 <label>Name <a href="/random">(get random one)</a>:</label>

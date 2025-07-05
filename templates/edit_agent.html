@@ -4,9 +4,11 @@
 
 {% block content %}
     <div class="edit-agent-container">
-        {% block error %}
+        {% if error_message %}
+            <p class="error-message">Please fill in all fields correctly.</p>
+        {% else %}
             <p>Update information about the agent №{{ id }} - <a href="/agent/{{ id }}">{{ name }}</a>:</p>
-        {% endblock %}
+        {% endif %}
         <form class="form-group" method="POST">
             <div class="form-group">
                 <label>New Name:</label>
